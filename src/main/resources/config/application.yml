@@ -1,0 +1,17 @@
+server:
+  port: 6260
+
+spring:
+  application:
+    name: tdc-connector-ufx
+ufx:
+  login:
+    username: 7777           #用户名
+    password: 2.2.2.         #密码
+  t2sdk-config-path: E:\work\sumscope\tdc-connector\tdc-connector-ufx\build\resources\main\config\t2sdk-config.xml
+
+netty:
+  host: 127.0.0.1
+  #  host: 172.16.139.144
+  #  port: 30833
+  port: 8888

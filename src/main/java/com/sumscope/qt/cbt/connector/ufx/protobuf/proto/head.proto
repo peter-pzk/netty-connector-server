@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package head;
+
+enum Pack_Type
+{
+  /* 包类型（'P'发布，'R'请求，'O'应答） */
+  Pack_Null=0;//0
+  Pack_Pub = 80; // 'P'发布
+  Pack_Req = 82; // 'R'请求
+  Pack_Rsp = 79; // 'O'应答
+}
+
+enum Chain_Type
+{
+  Chain_Null=0;//0
+  Chain_Continue = 67;	//还有后续的XTP报文
+  Chain_Last = 76;		//最后一个XTP报文
+}
+
+//记录 处理时间点
+message TimePoint
+{
+  /* 通讯阶段序号,每次更换序号，SequenceNo都从1重新开始 */
+  oneof oneof_name {string	Desc = 1;}
+
+  /* 请求发起者在前置的会话ID*/ // 来自front的数据包才会存在这个字段
+  oneof oneof_name2 { int64	time_ns = 2;}
+}
+message Head
+{
+  Pack_Type Type=1 ;
+  Chain_Type	Chain =2 ;
+
+  /* 主题 */
+  oneof oneof_name3 { uint32	SubjectID = 3;}
+
+  /* XTP报文的id	*/
+  oneof oneof_name4 { uint32	Tid = 4;}
+
+  /* XTP报文的序号 */
+  oneof oneof_name5 { int32	SequenceNo = 5;}
+
+  /** 下面的几个字段在整个xtp通讯中，不是每个地方都需要 */
+
+
+  /* 请求ID*/ // 来自客户端的请求才有这个
+  oneof oneof_name6 { int32	RequestID = 6;}
+
+  /* 请求发起者在前置的会话ID*/ // 来自front的数据包才会存在这个字段
+  oneof oneof_name7 { int32	SessionID = 10;}
+  /* 交易前置的标识 */ // 来自front的数据包才存在这个
+  oneof oneof_name8 { int32	FrontID = 11;}
+
+  // 不需要了
+  // int32	GroupID;			/* 订阅组标识*/
+  //int32	ContentLength;
+
+  repeated TimePoint TimePoint = 12;
+}

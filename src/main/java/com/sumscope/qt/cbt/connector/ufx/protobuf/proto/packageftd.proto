@@ -1,0 +1,202 @@
+/////////////////////////////////////////////////////////////////////////
+///@system 执行引擎系统
+///@company 敏捷交易所
+///@file messageftd.proto.tpl
+///@brief 利用xtp.xml生成 protobuf所需的包定义文件
+///@history
+///20121114	Solomon Wu		创建该文件
+/////////////////////////////////////////////////////////////////////////
+syntax = "proto3";
+//option optimize_for = LITE_RUNTIME;
+
+import "head.proto";
+import "messageftd.proto";
+
+package ftd;
+
+
+//tid="0x00003001" comment="报单录入请求"
+message CPackReqOrderInsert
+{
+   head.Head Head = 1;
+   CInputOrder InputOrder = 2;
+}
+
+//tid="0x00003002" comment="报单录入错误时响应"
+message CPackRspOrderInsert
+{
+   head.Head Head = 1;
+   CInputOrder InputOrder = 2;
+   CRspInfo RspInfo = 3;
+}
+
+//tid="0x00003003" comment="报单修改/撤单请求"
+message CPackReqOrderAction
+{
+   head.Head Head = 1;
+   CInputOrderAction InputOrderAction = 2;
+}
+
+//tid="0x00003004" comment="报单修改/撤单错误时响应"
+message CPackRspOrderAction
+{
+   head.Head Head = 1;
+   CInputOrderAction InputOrderAction = 2;
+   CRspInfo RspInfo = 3;
+}
+
+//tid="0x00006001" comment="深度行情回报"
+message CPackRtnDepthMarketData
+{
+   head.Head Head = 1;
+   repeated CDepthMarketData DepthMarketData = 2;
+}
+
+//tid="0x00001102" comment="报单回报"
+message CPackRtnOrder
+{
+   head.Head Head = 1;
+   repeated COrder Order = 2;
+}
+
+//tid="0x00001111" comment="成交回报"
+message CPackRtnTrade
+{
+   head.Head Head = 1;
+   repeated CTrade Trade = 2;
+}
+
+//tid="0x00004001" comment="报价录入请求"
+message CPackReqQuoteInsert
+{
+   head.Head Head = 1;
+   CInputQuote InputQuote = 2;
+}
+
+//tid="0x00004002" comment="报价录入响应"
+message CPackRspQuoteInsert
+{
+   head.Head Head = 1;
+   CQuote Quote = 2;
+}
+
+//tid="0x00004003" comment="报价撤销"
+message CPackReqQuoteAction
+{
+   head.Head Head = 1;
+   CInputQuoteAction InputQuoteAction = 2;
+}
+
+//tid="0x00004004" comment="报价撤销响应"
+message CPackRspQuoteAction
+{
+   head.Head Head = 1;
+   CQuote Quote = 2;
+}
+
+//tid="0x00004005" comment="报价回报"
+message CPackRtnQuote
+{
+   head.Head Head = 1;
+   repeated CQuote Quote = 2;
+}
+
+//tid="0x00004006" comment="报价成交回报"
+message CPackRtnQuoteTrade
+{
+   head.Head Head = 1;
+   repeated CQuoteTrade QuoteTrade = 2;
+}
+
+//tid="0x00004101" comment="指示性报价录入请求"
+message CPackReqQuoteIndexInsert
+{
+   head.Head Head = 1;
+   CInputIndicativeQuote InputIndicativeQuote = 2;
+}
+
+//tid="0x00004102" comment="指示性报价录入响应"
+message CPackRspQuoteIndexInsert
+{
+   head.Head Head = 1;
+   CIndicativeQuote IndicativeQuote = 2;
+}
+
+//tid="0x00004103" comment="指示性报价撤销"
+message CPackReqQuoteIndexAction
+{
+   head.Head Head = 1;
+   CInputIndicativeQuoteAction InputIndicativeQuoteAction = 2;
+}
+
+//tid="0x00004104" comment="指示性报价撤销响应"
+message CPackRspQuoteIndexAction
+{
+   head.Head Head = 1;
+   CIndicativeQuote IndicativeQuote = 2;
+}
+
+//tid="0x00004105" comment="指示性报价回报"
+message CPackRtnQuoteIndex
+{
+   head.Head Head = 1;
+   repeated CIndicativeQuote IndicativeQuote = 2;
+}
+
+//tid="0x00004010" comment="XBond报单录入请求"
+message CPackReqBondOrderInsert
+{
+   head.Head Head = 1;
+   CInputBondOrder InputBondOrder = 2;
+}
+
+//tid="0x00004011" comment="XBond报单录入响应"
+message CPackRspBondOrderInsert
+{
+   head.Head Head = 1;
+   CInputBondOrderResult InputBondOrderResult = 2;
+}
+
+//tid="0x00004012" comment="XBond报单撤销"
+message CPackReqBondOrderAction
+{
+   head.Head Head = 1;
+   CInputBondOrderAction InputBondOrderAction = 2;
+}
+
+//tid="0x00004013" comment="XBond报单撤销成功响应"
+message CPackRspBondOrderActionResult
+{
+   head.Head Head = 1;
+   CInputBondOrderActionResult InputBondOrderActionResult = 2;
+}
+
+//tid="0x00004014" comment="XBond报单撤销失败响应"
+message CPackRspBondOrderActionReject
+{
+   head.Head Head = 1;
+   CInputBondOrderActionReject InputBondOrderActionReject = 2;
+}
+
+//tid="0x00004015" comment="XBond报单回报"
+message CPackRtnBondOrder
+{
+   head.Head Head = 1;
+   repeated CBondOrder BondOrder = 2;
+}
+
+//tid="0x00004016" comment="XBond报单成交回报"
+message CPackRtnBondOrderTrade
+{
+   head.Head Head = 1;
+   repeated CBondOrderTrade BondOrderTrade = 2;
+}
+
+//tid="0x00004020" comment="通用失败反馈"
+message CPackRtnBizMsgReject
+{
+   head.Head Head = 1;
+   CBusinessMessageReject BusinessMessageReject = 2;
+}
+
+

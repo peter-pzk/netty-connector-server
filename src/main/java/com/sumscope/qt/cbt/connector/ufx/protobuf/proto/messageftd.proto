@@ -1,0 +1,632 @@
+/////////////////////////////////////////////////////////////////////////
+///@system 执行引擎系统
+///@company 敏捷交易所
+///@file messagextp.proto.tpl
+///@brief 利用xtp.xml生成 protobuf所需的包定义文件
+///@history
+///20121114	Solomon Wu		创建该文件
+/////////////////////////////////////////////////////////////////////////
+
+syntax = "proto3";
+//option optimize_for = LITE_RUNTIME;
+
+package ftd;
+
+
+//fid="0x0101" comment="信息分发"
+message CDissemination
+{
+   int32 SequenceSeries = 1; 	// 流类型编号
+   int32 SequenceNo = 2; 	// 流的系列号
+}
+
+//fid="0x0102" comment="响应信息"
+message CRspInfo
+{
+   int32 ErrorID = 1; 	// 错误代码
+   string ErrorMsg = 2; 	// 错误信息
+}
+
+//fid="0x0201" comment="用户登录请求"
+message CReqUserLogin
+{
+   string TradingDay = 1; 	// 系统交易日
+   string BrokerID = 2; 	// 经纪公司代码
+   string UserID = 3; 	// 用户代码
+   string Password = 4; 	// 登录密码
+}
+
+//fid="0x0202" comment="用户登录响应"
+message CRspUserLogin
+{
+   int32 FrontID = 1; 	// 前置编号
+   int32 SessionID = 2; 	// 会话编号
+   string TradingDay = 3; 	// 系统交易日
+   string BrokerID = 4; 	// 经纪公司代码
+   string UserID = 5; 	// 用户代码
+   string LoginTime = 6; 	// 登录成功时间
+   string MaxOrderRef = 7; 	// 最大报单引用
+}
+
+//fid="0x0041" comment="用户退出"
+message CUserLogout
+{
+   string BrokerID = 1; 	// 经纪公司代码
+   string UserID = 2; 	// 用户代码
+}
+
+//fid="0x1501" comment="报单录入"
+message CInputOrder
+{
+   int32 FrontID = 1; 	// 前置编号
+   int32 SessionID = 2; 	// 会话编号
+   string UserID = 3; 	// 用户代码
+   string ExchangeID = 4; 	// 交易所代码
+   string CommodityID = 5; 	// 商品代码
+   string InstrumentID = 6; 	// 合约代码
+   int32 OrderPriceType = 7; 	// 报单价格条件
+   int32 Direction = 8; 	// 买入卖出
+   int32 OffsetFlag = 9; 	// 开仓平仓
+   int32 HedgeFlag = 10; 	// 投机保值
+   double Price = 11; 	// 委托价格
+   sint64 Volume = 12; 	// 委托数量
+   string BusinessUnit = 13; 	// 客户报单信息
+   string BrokerID = 14; 	// 经纪会员代码
+   string InvestorID = 15; 	// 投资者编号
+   int32 TimeCondition = 16; 	// 有效期类型
+   string OrderRef = 17; 	// 报单引用
+   string InsertTime = 18; 	// 委托时间
+}
+
+//fid="0x2408" comment="深度市场行情"
+message CDepthMarketData
+{
+   string TradingDay = 1; 	// 交易日
+   string ActionDay = 2; 	// 业务日期
+   string InstrumentID = 3; 	// 合约代码
+   string ExchangeID = 4; 	// 交易所代码
+   double PreSettlementPrice = 5; 	// 昨结算
+   double PreClosePrice = 6; 	// 昨收盘
+   sint64 PreOpenInterest = 7; 	// 昨持仓量
+   double PreDelta = 8; 	// 昨虚实度
+   double UpperLimitPrice = 9; 	// 涨停板价
+   double LowerLimitPrice = 10; 	// 跌停板价
+   double OpenPrice = 11; 	// 今开盘
+   double ClosePrice = 12; 	// 今收盘
+   double SettlementPrice = 13; 	// 本次结算价
+   double CurrDelta = 14; 	// 今虚实度
+   double LastPrice = 15; 	// 最新价
+   sint64 Volume = 16; 	// 数量
+   double Turnover = 17; 	// 成交金额
+   sint64 OpenInterest = 18; 	// 持仓量
+   double HighestPrice = 19; 	// 最高价
+   double LowestPrice = 20; 	// 最低价
+   double AvgPrice = 21; 	// 平均价
+   double BidPrice1 = 22; 	// 申买价一
+   sint64 BidVolume1 = 23; 	// 申买量一
+   double AskPrice1 = 24; 	// 申卖价一
+   sint64 AskVolume1 = 25; 	// 申卖量一
+   double BidPrice2 = 26; 	// 申买价二
+   sint64 BidVolume2 = 27; 	// 申买量二
+   double BidPrice3 = 28; 	// 申买价三
+   sint64 BidVolume3 = 29; 	// 申买量三
+   double AskPrice2 = 30; 	// 申卖价二
+   sint64 AskVolume2 = 31; 	// 申卖量二
+   double AskPrice3 = 32; 	// 申卖价三
+   sint64 AskVolume3 = 33; 	// 申卖量三
+   double BidPrice4 = 34; 	// 申买价四
+   sint64 BidVolume4 = 35; 	// 申买量四
+   double BidPrice5 = 36; 	// 申买价五
+   sint64 BidVolume5 = 37; 	// 申买量五
+   double AskPrice4 = 38; 	// 申卖价四
+   sint64 AskVolume4 = 39; 	// 申卖量四
+   double AskPrice5 = 40; 	// 申卖价五
+   sint64 AskVolume5 = 41; 	// 申卖量五
+   string UpdateTime = 42; 	// 最后修改时间
+   int32 UpdateMillisec = 43; 	// 最后修改毫秒
+   string InvestorID = 44; 	// 投资者编号
+   int32 IsLast = 45; 	// 是否最后一笔历史行情
+}
+
+//fid="0x2507" comment="成交"
+message CTrade
+{
+   string ExchangeID = 1; 	// 交易所代码
+   string TradingDay = 2; 	// 交易日
+   string TradeID = 3; 	// 成交号
+   string OrderSysID = 4; 	// 报单编号
+   string OrderInnerID = 5; 	// 系统内部排序(字符串)
+   string CommodityID = 6; 	// 商品代码
+   string InstrumentID = 7; 	// 合约代码
+   string UserID = 8; 	// 用户代码
+   int32 Direction = 9; 	// 买入卖出
+   int32 OffsetFlag = 10; 	// 开仓平仓
+   int32 HedgeFlag = 11; 	// 投机保值
+   double OrderPrice = 12; 	// 报单价格
+   double TradePrice = 13; 	// 成交价
+   sint64 VolumeTraded = 14; 	// 成交数量
+   string TradeDate = 15; 	// 成交日期
+   string TradeTime = 16; 	// 成交时间
+   double TradeFee = 17; 	// 手续费
+   string CurrencyID = 18; 	// 手续费币种
+   double ManualFee = 19; 	// 手工手续费
+   int32 Deleted = 20; 	// 删除标志
+   double CoverPrice = 21; 	// 平仓价格
+   string ExchangeInstID = 22; 	// 合约在交易所的代码
+   string BrokerID = 23; 	// 经纪会员代码
+   string InvestorID = 24; 	// 投资者代码
+   string OrderRef = 25; 	// 报单引用
+}
+
+//fid="0x2508" comment="报单"
+message COrder
+{
+   int32 FrontID = 1; 	// 前置编号
+   int32 SessionID = 2; 	// 会话编号
+   string UserID = 3; 	// 用户代码
+   string ExchangeID = 4; 	// 交易所代码
+   string CommodityID = 5; 	// 商品代码
+   string InstrumentID = 6; 	// 合约代码
+   int32 OrderPriceType = 7; 	// 报单价格条件
+   int32 Direction = 8; 	// 买入卖出
+   int32 OffsetFlag = 9; 	// 开仓平仓
+   int32 HedgeFlag = 10; 	// 投机保值
+   double Price = 11; 	// 委托价格
+   sint64 Volume = 12; 	// 委托数量
+   string BusinessUnit = 13; 	// 客户报单信息
+   string BrokerID = 14; 	// 经纪会员代码
+   string InvestorID = 15; 	// 投资者编号
+   int32 TimeCondition = 16; 	// 有效期类型
+   string OrderRef = 17; 	// 报单引用
+   string InsertTime = 18; 	// 委托时间
+   string OrderSysID = 19; 	// 报单引用
+   string OrderInnerID = 20; 	// 报单编号
+   string TradingDay = 21; 	// 交易日
+   sint64 VolumeTraded = 22; 	// 今成交数量
+   sint64 VolumeTotal = 23; 	// 剩余数量
+   int32 OrderSubmitStatus = 24; 	// 报单提交状态
+   int32 OrderStatus = 25; 	// 报单状态
+   string InsertDate = 26; 	// 报单日期
+   string UpdateDate = 27; 	// 更新日期
+   string UpdateTime = 28; 	// 更新时间
+   string CancelTime = 29; 	// 撤销时间
+   string StatusMsg = 30; 	// 状态信息
+   int32 Tradeable = 31; 	// 是否可交易
+}
+
+//fid="0x2509" comment="报单操作"
+message CInputOrderAction
+{
+   int32 FrontID = 1; 	// 前置编号
+   int32 SessionID = 2; 	// 会话编号
+   string InvestorID = 3; 	// 投资者编号
+   string UserID = 4; 	// 用户代码
+   int32 ActionFlag = 5; 	// 操作标志
+   double Price = 6; 	// 委托价格
+   sint64 Volume = 7; 	// 委托数量
+   string BrokerID = 8; 	// 经纪会员代码
+   string ExchangeID = 9; 	// 交易所代码
+   string OrderSysID = 10; 	// 报单编号
+   string InstrumentID = 11; 	// 合约代码
+}
+
+//fid="0x257a" comment="请求/退订行情"
+message CSubMarketData
+{
+   string InstrumentID = 1; 	// 合约代码
+   string ExchangeID = 2; 	// 交易所代码
+}
+
+//fid="0x3000" comment="报价录入"
+message CInputQuote
+{
+   int32 MarketIndicator = 1; 	// 市场
+   int32 ContingencyIndicator = 2; 	// 应急标识
+   int32 QuoteType = 3; 	// 报价类别
+   int32 QuoteTransType = 4; 	// 操作类型
+   string ValidUntilTime = 5; 	// 报价有效时间
+   string ClOrdID = 6; 	// 客户参考编号
+   string SecurityID = 7; 	// 债券代码
+   string Symbol = 8; 	// 债券名称
+   string SettlCurrency = 9; 	// 结算币种
+   double SettlCurrFxRate = 10; 	// 汇率
+   int32 SettleType = 11; 	// 清算速度
+   string TraderID = 12; 	// 交易员ID
+   int32 RoutingType = 13; 	// 发送对象
+   int32 DeliveryType = 14; 	// 结算方式
+   int32 ClearingMethod = 15; 	// 清算类型
+   string UserReference1 = 16; 	// 用户参考数据 1
+   string UserReference2 = 17; 	// 用户参考数据 2
+   string UserReference3 = 18; 	// 用户参考数据 3
+   string UserReference4 = 19; 	// 用户参考数据 4
+   string UserReference5 = 20; 	// 用户参考数据 5
+   string UserReference6 = 21; 	// 用户参考数据 6
+   double BuyPrice = 22; 	// 价格
+   sint64 BuyQty = 23; 	// 报单量
+   double BuyYTM = 24; 	// 价格
+   double BuyStrikeYield = 25; 	// 行权收益率
+   double BuyAccruedInterestAmt = 26; 	// 应计利息
+   sint64 SellQty = 27; 	// 报单量
+   double SellPrice = 28; 	// 价格
+   double SellYTM = 29; 	// 价格
+   double SellStrikeYield = 30; 	// 行权收益率
+   double SellAccruedInterestAmt = 31; 	// 应计利息
+   int32 DataSourceString = 32; 	// 报价来源
+   int32 MarketScope = 33; 	// 市场范围
+   string SecurityDesc = 34; 	// 债券类型名称
+   string SecurityTypeID = 35; 	// 债券类型ID
+   int32 ChannelType = 36; 	// 渠道类型
+   string Channel = 37; 	// 渠道
+   string TermToMaturityString = 38; 	// 待偿期
+   string DateConfirmed = 39; 	// 场次日期
+   sint64 MaxFloor = 40; 	// 最大显示券面总额
+   string ShortPartyID = 41; 	// 机构6位码
+   string ShortPartyName = 42; 	// 机构中文简称
+   string TradingAcctNumber = 43; 	// 交易账户6位码
+   string TradingAcctName = 44; 	// 交易账户中文简称
+   string TraderName = 45; 	// 交易员名称
+   string PartySource = 46; 	// 机构来源
+   string IssuerShortPartyID = 47; 	// 发行人机构6位码
+}
+
+//fid="0x3001" comment="报价修改"
+message CInputQuoteAction
+{
+   int32 QuoteType = 1; 	// 报价类别
+   string ValidUntilTime = 2; 	// 报价有效时间
+   string ClOrdID = 3; 	// 撤销的客户参考编号
+   string OrigClOrdID = 4; 	// 原报价的客户参考编号
+   string QuoteID = 5; 	// 报价编号
+   string TransactTime = 6; 	// 业务发生时间
+   string Symbol = 7; 	// 债券名称
+   string SecurityID = 8; 	// 债券代码
+   int32 MarketIndicator = 9; 	// 市场
+}
+
+//fid="0x3002" comment="报价"
+message CQuote
+{
+   int32 MarketIndicator = 1; 	// 市场
+   int32 ContingencyIndicator = 2; 	// 应急标识
+   int32 QuoteType = 3; 	// 报价类别
+   int32 QuoteTransType = 4; 	// 操作类型
+   string ValidUntilTime = 5; 	// 报价有效时间
+   string ClOrdID = 6; 	// 客户参考编号
+   string SecurityID = 7; 	// 债券代码
+   string Symbol = 8; 	// 债券名称
+   string SettlCurrency = 9; 	// 结算币种
+   double SettlCurrFxRate = 10; 	// 汇率
+   int32 SettleType = 11; 	// 清算速度
+   string TraderID = 12; 	// 交易员ID
+   int32 RoutingType = 13; 	// 发送对象
+   int32 DeliveryType = 14; 	// 结算方式
+   int32 ClearingMethod = 15; 	// 清算类型
+   string UserReference1 = 16; 	// 用户参考数据 1
+   string UserReference2 = 17; 	// 用户参考数据 2
+   string UserReference3 = 18; 	// 用户参考数据 3
+   string UserReference4 = 19; 	// 用户参考数据 4
+   string UserReference5 = 20; 	// 用户参考数据 5
+   string UserReference6 = 21; 	// 用户参考数据 6
+   double BuyPrice = 22; 	// 价格
+   sint64 BuyQty = 23; 	// 报单量
+   double BuyYTM = 24; 	// 价格
+   double BuyStrikeYield = 25; 	// 行权收益率
+   double BuyAccruedInterestAmt = 26; 	// 应计利息
+   sint64 SellQty = 27; 	// 报单量
+   double SellPrice = 28; 	// 价格
+   double SellYTM = 29; 	// 价格
+   double SellStrikeYield = 30; 	// 行权收益率
+   double SellAccruedInterestAmt = 31; 	// 应计利息
+   string QuoteID = 32; 	// 报价编号
+   int32 QuoteStatus = 33; 	// 报价状态
+   int32 QuoteStatusDesc = 34; 	// 报价状态说明
+   string TransactTime = 35; 	// 业务发生时间
+   sint64 BuyLastQty = 36; 	// 已成交券面总额
+   sint64 SellLastQty = 37; 	// 已成交券面总额
+   string TradingAcctNumber = 38; 	// 交易账户6位码
+}
+
+//fid="0x3003" comment="报价成交"
+message CQuoteTrade
+{
+   int32 MarketIndicator = 1; 	// 市场标识
+   string ExecID = 2; 	// 成交编号
+   int32 TradeMethod = 3; 	// 交易方式
+   int32 ExecType = 4; 	// 成交状态
+   string TradeDate = 5; 	// 成交日期
+   string TradeTime = 6; 	// 成交时间
+   string QuoteID = 7; 	// 做市报价报价编号
+   string OrderID = 8; 	// 订单编号
+   string SecurityID = 9; 	// 债券代码
+   double AccruedInterestAmt = 10; 	// 应计利息
+   double Price = 11; 	// 净价
+   sint64 LastQty = 12; 	// 券面总额
+   string SettlCurrency = 13; 	// 结算币种
+   double SettlCurrFxRate = 14; 	// 汇率
+   int32 SettleType = 15; 	// 清算速度
+   string BuyShortPartyID = 16; 	// 买方交易账户6位码
+   string BuyTraderID = 17; 	// 买方交易员ID
+   string SellShortPartyID = 18; 	// 卖方交易账户6位码
+   string SellTraderID = 19; 	// 卖方交易员ID
+   int32 DeliveryType = 20; 	// 申买价1结算方式
+   int32 ClearingMethod = 21; 	// 清算类型
+}
+
+//fid="0x3100" comment="报单操作"
+message CInputBondOrder
+{
+   int32 MarketIndicator = 1; 	// 市场
+   int32 PreMarketBondIndicator = 2; 	// 上市前交易标识
+   string DateConfirmed = 3; 	// 场次日期
+   int32 DataSourceString = 4; 	// 报价来源
+   string SecurityDesc = 5; 	// 债券类型名称
+   string TermToMaturityString = 6; 	// 待偿期
+   int32 OrdType = 7; 	// 订单类型
+   string ClOrdID = 8; 	// 客户参考编号
+   string SecurityID = 9; 	// 债券代码
+   string Symbol = 10; 	// 债券名称
+   int32 Direction = 11; 	// 交易方向
+   double Price = 12; 	// 净价
+   sint64 OrderQty = 13; 	// 券面总额
+   int32 MatchType = 14; 	// 报价方式
+   string UserReference1 = 15; 	// 用户参考数据 1
+   string UserReference2 = 16; 	// 用户参考数据 2
+   string UserReference3 = 17; 	// 用户参考数据 3
+   string UserReference4 = 18; 	// 用户参考数据 4
+   string UserReference5 = 19; 	// 用户参考数据 5
+   string UserReference6 = 20; 	// 用户参考数据 6
+   int32 ClearingMethod = 21; 	// 清算类型
+   int32 SettleType = 22; 	// 清算速度
+   double Yield = 23; 	// 到期收益率
+   double StrikeYield = 24; 	// 行权收益率
+   string ShortPartyID = 25; 	// 机构6位码
+   string TradingAcctNumber = 26; 	// 交易账户6位码
+   string TradingAcctName = 27; 	// 交易账户中文简称
+   string TraderID = 28; 	// 交易员ID
+   string IssuerShortPartyID = 29; 	// 发行人机构6位码
+}
+
+//fid="0x3101" comment="撤单操作"
+message CInputBondOrderAction
+{
+   int32 MarketIndicator = 1; 	// 市场
+   string ClOrdID = 2; 	// 客户参考编号
+   string OrderID = 3; 	// 报价编号
+   int32 MatchType = 4; 	// 报价方式
+   string UserReference1 = 5; 	// 用户参考数据 1
+   string UserReference2 = 6; 	// 用户参考数据 2
+   string UserReference3 = 7; 	// 用户参考数据 3
+   string UserReference4 = 8; 	// 用户参考数据 4
+   string UserReference5 = 9; 	// 用户参考数据 5
+   string UserReference6 = 10; 	// 用户参考数据 6
+}
+
+//fid="0x3102" comment="报单反馈"
+message CInputBondOrderResult
+{
+   int32 MarketIndicator = 1; 	// 市场标识
+   string ClOrdID = 2; 	// 客户参考编号
+   string OrderID = 3; 	// 报价编号
+   int32 ExecAckStatus = 4; 	// 操作状态
+   string TransactTime = 5; 	// 业务发生时间
+   string UserReference1 = 6; 	// 用户参考数据 1
+   string UserReference2 = 7; 	// 用户参考数据 2
+   string UserReference3 = 8; 	// 用户参考数据 3
+   string UserReference4 = 9; 	// 用户参考数据 4
+   string UserReference5 = 10; 	// 用户参考数据 5
+   string UserReference6 = 11; 	// 用户参考数据 6
+   int32 ApplErrorCode = 12; 	// 错误代码
+   string ApplErrorDesc = 13; 	// 报价方式
+}
+
+//fid="0x3103" comment="撤单成功反馈"
+message CInputBondOrderActionResult
+{
+   int32 MarketIndicator = 1; 	// 市场标识
+   string ClOrdID = 2; 	// 客户参考编号
+   string OrderID = 3; 	// 报价编号
+   int32 ExecAckStatus = 4; 	// 操作状态
+   string TransactTime = 5; 	// 业务发生时间
+   string UserReference1 = 6; 	// 用户参考数据 1
+   string UserReference2 = 7; 	// 用户参考数据 2
+   string UserReference3 = 8; 	// 用户参考数据 3
+   string UserReference4 = 9; 	// 用户参考数据 4
+   string UserReference5 = 10; 	// 用户参考数据 5
+   string UserReference6 = 11; 	// 用户参考数据 6
+}
+
+//fid="0x3104" comment="撤单失败反馈"
+message CInputBondOrderActionReject
+{
+   int32 MarketIndicator = 1; 	// 市场
+   string ClOrdID = 2; 	// 客户参考编号
+   string OrderID = 3; 	// 报价编号
+   int32 MatchType = 4; 	// 报价方式
+   int32 ApplErrorCode = 5; 	// 错误代码
+   string ApplErrorDesc = 6; 	// 报价方式
+   string TransactTime = 7; 	// 业务发生时间
+   string UserReference1 = 8; 	// 用户参考数据 1
+   string UserReference2 = 9; 	// 用户参考数据 2
+   string UserReference3 = 10; 	// 用户参考数据 3
+   string UserReference4 = 11; 	// 用户参考数据 4
+   string UserReference5 = 12; 	// 用户参考数据 5
+   string UserReference6 = 13; 	// 用户参考数据 6
+}
+
+//fid="0x3105" comment="报单回报"
+message CBondOrder
+{
+   int32 MarketIndicator = 1; 	// 市场标识
+   int32 DataSourceString = 2; 	// 报价来源
+   int32 OrdType = 3; 	// 订单类型
+   int32 OrdStatus = 4; 	// 订单状态
+   string ClOrdID = 5; 	// 客户参考编号
+   string OrderID = 6; 	// 报价编号
+   string TransactTime = 7; 	// 业务发生时间
+   string SecurityID = 8; 	// 债券代码
+   int32 Direction = 9; 	// 交易方向
+   int32 MatchType = 10; 	// 报价方式
+   double Price = 11; 	// 净价
+   sint64 OrderQty = 12; 	// 券面总额
+   sint64 LeavesQty = 13; 	// 剩余总量
+   int32 ClearingMethod = 14; 	// 清算类型
+   int32 SettleType = 15; 	// 清算速度
+   string TradingAcctNumber = 16; 	// 交易账户6位码
+   string TraderID = 17; 	// 交易员ID
+}
+
+//fid="0x3104" comment="成交回报"
+message CBondOrderTrade
+{
+   int32 MarketIndicator = 1; 	// 市场标识
+   int32 DataSourceString = 2; 	// 报价来源
+   int32 OrdType = 3; 	// 订单类型
+   int32 OrdStatus = 4; 	// 订单状态
+   string ClOrdID = 5; 	// 客户参考编号
+   string OrderID = 6; 	// 报价编号
+   string TransactTime = 7; 	// 业务发生时间
+   string SecurityID = 8; 	// 债券代码
+   int32 Direction = 9; 	// 交易方向
+   int32 MatchType = 10; 	// 报价方式
+   double Price = 11; 	// 净价
+   sint64 OrderQty = 12; 	// 券面总额
+   sint64 LeavesQty = 13; 	// 剩余总量
+   int32 ClearingMethod = 14; 	// 清算类型
+   int32 SettleType = 15; 	// 清算速度
+   string TradingAcctNumber = 16; 	// 交易账户6位码
+   string TraderID = 17; 	// 交易员ID
+   string ExecID = 18; 	// 成交编号
+   string TradeDate = 19; 	// 成交日期
+   string TradeTime = 20; 	// 成交时间
+   double LastPx = 21; 	// 成交价格
+   sint64 LastQty = 22; 	// 成交量
+   string CPTradingAcctNumber = 23; 	// 对手方交易账户6位码
+   string CPTraderID = 24; 	// 对手方交易员ID
+}
+
+//fid="0x3200" comment="指示性报价"
+message CInputIndicativeQuote
+{
+   int32 MarketIndicator = 1; 	// 市场
+   int32 ContingencyIndicator = 2; 	// 应急标识
+   int32 QuoteType = 3; 	// 报价类别
+   int32 QuoteTransType = 4; 	// 操作类型
+   string ValidUntilTime = 5; 	// 报价有效时间
+   string ClOrdID = 6; 	// 客户参考编号
+   string SecurityID = 7; 	// 债券代码
+   string Symbol = 8; 	// 债券名称
+   string SettlCurrency = 9; 	// 结算币种
+   double SettlCurrFxRate = 10; 	// 汇率
+   int32 SettleType = 11; 	// 清算速度
+   string TraderID = 12; 	// 交易员ID
+   int32 RoutingType = 13; 	// 发送对象
+   int32 DeliveryType = 14; 	// 结算方式
+   int32 ClearingMethod = 15; 	// 清算类型
+   string UserReference1 = 16; 	// 用户参考数据 1
+   string UserReference2 = 17; 	// 用户参考数据 2
+   string UserReference3 = 18; 	// 用户参考数据 3
+   string UserReference4 = 19; 	// 用户参考数据 4
+   string UserReference5 = 20; 	// 用户参考数据 5
+   string UserReference6 = 21; 	// 用户参考数据 6
+   double BuyPrice = 22; 	// 价格
+   sint64 BuyQty = 23; 	// 报单量
+   double BuyYTM = 24; 	// 价格
+   double BuyStrikeYield = 25; 	// 行权收益率
+   double BuyAccruedInterestAmt = 26; 	// 应计利息
+   sint64 SellQty = 27; 	// 报单量
+   double SellPrice = 28; 	// 价格
+   double SellYTM = 29; 	// 价格
+   double SellStrikeYield = 30; 	// 行权收益率
+   double SellAccruedInterestAmt = 31; 	// 应计利息
+   double BuyLegDirtyPrice = 32; 	// 全价
+   double BuyLegTradeCashAmt = 33; 	// 交易金额
+   double BuyLegAccruedInterestTotalAmt = 34; 	// 应计利息总额
+   double BuyLegSettlCurrAmt = 35; 	// 结算金额
+   string BuyLegSettlDate = 36; 	// 结算日期
+   double SellLegDirtyPrice = 37; 	// 全价
+   double SellLegTradeCashAmt = 38; 	// 交易金额
+   double SellLegAccruedInterestTotalAmt = 39; 	// 应计利息总额
+   double SellLegSettlCurrAmt = 40; 	// 结算金额
+   string SellLegSettlDate = 41; 	// 结算日期
+   string TradingAcctNumber = 42; 	// 交易账户21位码
+   string RoutingID = 43; 	// 群组ID
+   string QuoteTime = 44; 	// 行情生成时间
+}
+
+//fid="0x3201" comment="指示性撤销"
+message CInputIndicativeQuoteAction
+{
+   int32 QuoteType = 1; 	// 报价类别
+   string ValidUntilTime = 2; 	// 报价有效时间
+   string ClOrdID = 3; 	// 撤销的客户参考编号
+   string OrigClOrdID = 4; 	// 原报价的客户参考编号
+   string QuoteID = 5; 	// 报价编号
+   string TransactTime = 6; 	// 业务发生时间
+   string Symbol = 7; 	// 债券名称
+   string SecurityID = 8; 	// 债券代码
+   int32 MarketIndicator = 9; 	// 市场
+}
+
+//fid="0x3203" comment="指示性报价反馈"
+message CIndicativeQuote
+{
+   int32 MarketIndicator = 1; 	// 市场
+   int32 ContingencyIndicator = 2; 	// 应急标识
+   int32 QuoteType = 3; 	// 报价类别
+   int32 QuoteTransType = 4; 	// 操作类型
+   string ValidUntilTime = 5; 	// 报价有效时间
+   string ClOrdID = 6; 	// 客户参考编号
+   string SecurityID = 7; 	// 债券代码
+   string Symbol = 8; 	// 债券名称
+   string SettlCurrency = 9; 	// 结算币种
+   double SettlCurrFxRate = 10; 	// 汇率
+   int32 SettleType = 11; 	// 清算速度
+   string TraderID = 12; 	// 交易员ID
+   int32 RoutingType = 13; 	// 发送对象
+   int32 DeliveryType = 14; 	// 结算方式
+   int32 ClearingMethod = 15; 	// 清算类型
+   string UserReference1 = 16; 	// 用户参考数据 1
+   string UserReference2 = 17; 	// 用户参考数据 2
+   string UserReference3 = 18; 	// 用户参考数据 3
+   string UserReference4 = 19; 	// 用户参考数据 4
+   string UserReference5 = 20; 	// 用户参考数据 5
+   string UserReference6 = 21; 	// 用户参考数据 6
+   double BuyPrice = 22; 	// 价格
+   sint64 BuyQty = 23; 	// 报单量
+   double BuyYTM = 24; 	// 价格
+   double BuyStrikeYield = 25; 	// 行权收益率
+   double BuyAccruedInterestAmt = 26; 	// 应计利息
+   sint64 SellQty = 27; 	// 报单量
+   double SellPrice = 28; 	// 价格
+   double SellYTM = 29; 	// 价格
+   double SellStrikeYield = 30; 	// 行权收益率
+   double SellAccruedInterestAmt = 31; 	// 应计利息
+   double BuyLegDirtyPrice = 32; 	// 全价
+   double BuyLegTradeCashAmt = 33; 	// 交易金额
+   double BuyLegAccruedInterestTotalAmt = 34; 	// 应计利息总额
+   double BuyLegSettlCurrAmt = 35; 	// 结算金额
+   string BuyLegSettlDate = 36; 	// 结算日期
+   double SellLegDirtyPrice = 37; 	// 全价
+   double SellLegTradeCashAmt = 38; 	// 交易金额
+   double SellLegAccruedInterestTotalAmt = 39; 	// 应计利息总额
+   double SellLegSettlCurrAmt = 40; 	// 结算金额
+   string SellLegSettlDate = 41; 	// 结算日期
+   string TradingAcctNumber = 42; 	// 交易账户21位码
+   string RoutingID = 43; 	// 群组ID
+   string QuoteTime = 44; 	// 行情生成时间
+   string QuoteID = 45; 	// 报价编号
+   int32 QuoteStatus = 46; 	// 报价状态
+   string TransactTime = 47; 	// 行情生成时间
+}
+
+//fid="0x3204" comment="通用失败反馈"
+message CBusinessMessageReject
+{
+   string TransactTime = 1; 	// 行情生成时间
+   string ClOrdID = 2; 	// 客户参考编号
+   string ApplErrorCode = 3; 	// 错误代码
+   string ApplErrorDesc = 4; 	// 报价方式
+   string RefMsgType = 5; 	// API 上行消息的消息类型
+}
+
+
